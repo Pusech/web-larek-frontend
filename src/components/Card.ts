@@ -96,9 +96,6 @@ export class Card extends Component<ICard> {
 			this._button.textContent = value;
 		}
 	}
-	get buttonTitle(): string {
-		return this._button.textContent;
-	}
 }
 
 export class CardItem extends Card {
