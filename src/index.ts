@@ -83,7 +83,7 @@ events.on('modal:close', () => {
 });
 
 ///
-// Выбран способ оплаты и введен адресс
+// Выбран способ оплаты и введен адрес
 events.on('order:submit', () => {
 	modal.render({
 		content: contacts.render({
@@ -94,7 +94,7 @@ events.on('order:submit', () => {
 		}),
 	});
 });
-
+//финальный сабмит
 events.on('contacts:submit', () => {
 	api
 		.orderProducts(appData.order)
@@ -134,7 +134,7 @@ events.on('formErrors:change', (errors: Partial<IOrderForm>) => {
 });
 
 // // Изменилось одно из полей
-
+//изменение в полях выбора оплаты и адреса
 events.on(
 	/^order\..*:change/,
 	(data: { field: keyof IOrderForm; value: string }) => {
@@ -142,6 +142,7 @@ events.on(
 	}
 );
 
+//изменения в полях модального окна контакты
 events.on(
 	/^contacts\..*:change/,
 	(data: { field: keyof IOrderForm; value: string }) => {
@@ -150,6 +151,7 @@ events.on(
 	}
 );
 
+//изменение способа оплаты
 events.on(
 	'payment:change',
 	(data: { field: keyof IOrderForm; value: string }) => {
@@ -180,20 +182,12 @@ events.on('basket:open', () => {
 });
 
 //открытие карточки
-
-//ПОИСКАТЬ ДРУГОЕ РЕШЕНИЕ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//добавить булеан внутрь итема или типа того?
 events.on('preview:changed', (item: ProductItem) => {
-	let buttonTitle: string;
 	const card = new CardItem(cloneTemplate(cardPreviewTemplate), {
 		onClick: () => {
-			if (appData.basket.find((i) => i === item)) {
-				buttonTitle = 'В корзину';
-			} else {
-				buttonTitle = 'Удалить из корзины';
-			}
-
-			card.buttonTitle = buttonTitle;
+			card.buttonTitle = appData.isInBasket(item) //изменение текста на кнопке карточки
+				? 'В корзину'
+				: 'Удалить из корзины';
 			events.emit('product:changed', item);
 		},
 	});
@@ -205,25 +199,29 @@ events.on('preview:changed', (item: ProductItem) => {
 			image: item.image,
 			price: item.price,
 			category: item.category,
-			buttonTitle: card.buttonTitle,
+			buttonTitle: appData.isInBasket(item)
+				? 'Удалить из корзины'
+				: 'В корзину',
 		}),
 	});
 });
 
+// срабатывает при добавлении удалении товара в корзину
 events.on('product:changed', (item: ProductItem) => {
-	if (!appData.basket.find((i) => i === item)) {
+	if (!appData.isInBasket(item)) {
 		appData.addToBasket(item);
 	} else {
 		appData.removeFromBasket(item);
 	}
 });
 
+//любое изменение в корзине
 events.on('basket:changed', (items: ProductItem[]) => {
 	console.log('basket changed');
 	page.counter = appData.basket.length;
 	basket.items = appData.basket.map((item) => {
 		const card = new CardItem(cloneTemplate(cardBasketTemplate), {
-			onClick: () => events.emit('product:delete', item),
+			onClick: () => events.emit('product:changed', item),
 		});
 
 		return card.render({

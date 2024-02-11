@@ -73,6 +73,10 @@ export class AppState extends Model<IAppState> {
 		this.updateBasket();
 	}
 
+	isInBasket(item: ProductItem) {
+		return this.basket.find((i) => i === item);
+	}
+
 	setCatalog(items: IProductItem[]) {
 		this.catalog = items.map((item) => new ProductItem(item, this.events));
 		this.emitChanges('items:changed', { catalog: this.catalog });
