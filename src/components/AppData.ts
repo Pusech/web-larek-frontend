@@ -89,7 +89,6 @@ export class AppState extends Model<IAppState> {
 
 	setOrderField(field: keyof IOrderForm, value: string) {
 		this.order[field] = value;
-		console.log(this.order);
 		if (this.validateOrder()) {
 			this.events.emit('order:ready', this.order);
 		}
@@ -97,7 +96,6 @@ export class AppState extends Model<IAppState> {
 
 	setContactsField(field: keyof IOrderForm, value: string) {
 		this.order[field] = value;
-		console.log(this.order);
 		if (this.validateContacts()) {
 			this.events.emit('order:ready', this.order);
 		}

@@ -146,7 +146,6 @@ events.on(
 events.on(
 	/^contacts\..*:change/,
 	(data: { field: keyof IOrderForm; value: string }) => {
-		console.log('changes');
 		appData.setContactsField(data.field, data.value);
 	}
 );
@@ -217,7 +216,6 @@ events.on('product:changed', (item: ProductItem) => {
 
 //любое изменение в корзине
 events.on('basket:changed', (items: ProductItem[]) => {
-	console.log('basket changed');
 	page.counter = appData.basket.length;
 	basket.items = appData.basket.map((item) => {
 		const card = new CardItem(cloneTemplate(cardBasketTemplate), {
