@@ -182,7 +182,7 @@ handleResponse(response: Response): Promise<object>;
 
 Дочерние классы: ShopAPI
 
-# Дополнительные Модели данных (Бизнес-логика)
+# Модели данных (Бизнес-логика)
 
 ### AppState
 
@@ -251,7 +251,7 @@ handleResponse(response: Response): Promise<object>;
 - Расширяет базовую модель `Model<IProductItem>`.
 - Реализует интерфейс `IProductItem`
 
-## Компоненты представления
+# Компоненты представления
 
 ### Modal
 
@@ -568,7 +568,7 @@ constructor(container: HTMLFormElement, events: IEvents)
 
 ```
 
-## Компоненты презентера
+# Компоненты презентера
 
 ### ShopAPI
 
