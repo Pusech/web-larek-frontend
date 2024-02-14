@@ -7,8 +7,6 @@ export interface IProductItem {
 	price: number;
 }
 
-export type IProduct = IProductItem;
-
 export interface IAppState {
 	catalog: IProductItem[];
 	basket: string[];
@@ -45,7 +43,7 @@ export interface IOrderResultError {
 
 export type FormErrors = Partial<Record<keyof IOrder, string>>;
 
-export interface ICard extends IProduct {
+export interface ICard extends IProductItem {
 	index?: string;
 	buttonTitle?: string;
 }

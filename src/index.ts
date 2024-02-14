@@ -1,7 +1,7 @@
 import './scss/styles.scss';
-import { EventEmitter } from './components/base/events';
 import { cloneTemplate, createElement, ensureElement } from './utils/utils';
-import { ShopAPI } from './components/shopAPI';
+import { EventEmitter } from './components/base/Events';
+import { ShopAPI } from './components/ShopAPI';
 import { API_URL, CDN_URL } from './utils/constants';
 import {
 	AppState,
@@ -11,9 +11,9 @@ import {
 import { Page } from './components/Page';
 import { Modal } from './components/common/Modal';
 import { CardItem } from './components/Card';
-import { Basket } from './components/common/Basket';
+import { Basket } from './components/Basket';
 import { Contacts, Order } from './components/Order';
-import { Success } from './components/common/Success';
+import { Success } from './components/Success';
 import { IOrderForm } from './types';
 
 const events = new EventEmitter();
@@ -229,15 +229,15 @@ events.on('basket:changed', (items: ProductItem[]) => {
 		});
 	});
 
-	let total = items.reduce((acc, item) => acc + item.price, 0);
+	const total = items.reduce((acc, item) => acc + item.price, 0);
 	basket.total = total;
-	let itemsIds = items.map((item) => item.id);
+	const itemsIds = items.map((item) => item.id);
 	appData.setItems(itemsIds);
 	appData.setTotal(total);
 
 	if (appData.basket.length > 0) {
-		basket.buttonIsDisabled(false);
+		basket.toggleButton(false);
 	} else {
-		basket.buttonIsDisabled(true);
+		basket.toggleButton(true);
 	}
 });

@@ -141,7 +141,7 @@ export class AppState extends Model<IAppState> {
 
 	validateOrder() {
 		const errors: typeof this.formErrors = {};
-		const addressRegex = /^[a-zA-Z0-9\s,.'-]+$/;
+		const addressRegex = /^[А-ЯЁа-яёa-zA-Z0-9\s,.'-]+$/;
 
 		if (!this.order.payment) {
 			errors.address = 'Необходимо указать способ оплаты';

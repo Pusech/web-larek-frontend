@@ -1,6 +1,7 @@
 import { ICard } from '../types/index';
 import { Component } from './base/Component';
 import { ensureElement } from '../utils/utils';
+import { categories } from '../utils/constants';
 
 interface ICardActions {
 	onClick: (event: MouseEvent) => void;
@@ -77,6 +78,7 @@ export class Card extends Component<ICard> {
 
 	set category(value: string) {
 		this.setText(this._category, value);
+		this._category.classList.add(categories[value]);
 	}
 
 	get category(): string {
@@ -84,7 +86,7 @@ export class Card extends Component<ICard> {
 	}
 
 	set index(value: string) {
-		this._index.textContent = value;
+		this.setText(this._index, value);
 	}
 
 	get index(): string {
@@ -93,7 +95,7 @@ export class Card extends Component<ICard> {
 
 	set buttonTitle(value: string) {
 		if (this._button) {
-			this._button.textContent = value;
+			this.setText(this._button, value);
 		}
 	}
 }

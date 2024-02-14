@@ -1,6 +1,6 @@
-import { Component } from '../base/Component';
-import { cloneTemplate, createElement, ensureElement } from '../../utils/utils';
-import { EventEmitter } from '../base/events';
+import { Component } from './base/Component';
+import { cloneTemplate, createElement, ensureElement } from '../utils/utils';
+import { EventEmitter } from './base/Events';
 
 interface IBasketView {
 	items: HTMLElement[];
@@ -25,7 +25,7 @@ export class Basket extends Component<IBasketView> {
 				events.emit('order:open');
 			});
 		}
-		this._button.disabled = true;
+		this.toggleButton(true);
 		this.items = [];
 	}
 
@@ -45,7 +45,7 @@ export class Basket extends Component<IBasketView> {
 		this.setText(this._total, `${total} синапсов`);
 	}
 
-	buttonIsDisabled(isDisabled: boolean) {
+	toggleButton(isDisabled: boolean) {
 		this._button.disabled = isDisabled;
 	}
 }
